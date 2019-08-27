@@ -6,8 +6,8 @@ class Model(object):
 
     def __init__(self):
 
-        self.features = joblib.load('../model/features.pkl')
-        self.clf = joblib.load("../model/lr_model.pkl")
+        self.features = joblib.load('features.pkl')
+        self.clf = joblib.load("lr_model.pkl")
 
     def pipeline(self, X):
 
@@ -16,6 +16,7 @@ class Model(object):
         return _X
 
     def predict(self, X):
+
         _X = self.pipeline(X)
         result = int(self.clf.predict(_X))
         return result

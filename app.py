@@ -1,28 +1,26 @@
-import os
-import joblib
 import traceback
-import pandas as pd
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
+from flask_restful import Api
+from flask_restful import Resource
+from model import Model
 
 app = Flask(__name__)
+api = Api(app)
+clf = Model()
 
-feature_cols = ['Pclass', 'Parch', 'Age', 'Sex_female', 'Sex_male']
+
+class Predict(Resource):
+
+    def post(self):
+        try:
+            json_ = request.get_json(force=True)
+            predict = clf.predict(json_['features'])
+            return make_response(jsonify(prediction=predict), 200)
+        except Exception:
+            return make_response(jsonify(error=traceback.format_exc()), 500)
 
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    try:
-        json_ = request.json
-        print(json_)
-        query = pd.get_dummies(pd.DataFrame(json_))
-        query = query.reindex(columns=feature_cols, fill_value=0)
-        prediction = list(lr.predict(query))
-        return jsonify({'prediction': str(prediction)})
-    except Exception:
-        return jsonify({'trace': traceback.format_exc()})
-
+api.add_resource(Predict, '/predict')
 
 if __name__ == '__main__':
-    lr = joblib.load("lr_model.pkl")
-    port = int(os.environ.get('PORT', 5000))    
-    app.run(host='0.0.0.0', port=port)
+    app.run(debug=True, host='0.0.0.0', port=5000)

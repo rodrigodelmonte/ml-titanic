@@ -1,0 +1,70 @@
+openapi: "3.0.0"
+info:
+  description: "A simple Titanic API to preditct survivors"
+  version: "1.0.0"
+  title: "Titanic Predict"
+  contact:
+    email: "rvdelmonte@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+tags:
+- name: "Predict"
+  description: "Predict Titanic survivors'"
+paths:
+  /predict:
+    post:
+      tags:
+      - "survivor"
+      summary: "Predict a survicor"
+      description: "Predict a survicor"
+      operationId: api.predict
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/survivor"
+      responses:
+        405:
+          description: "Invalid input"
+        200:
+          description: "Succefully predicted"
+          content:
+            application/json:
+              schema:
+                type: integer
+                items:
+                  $ref: "#/components/schemas/prediction"
+components:
+  schemas:
+    survivor:
+      type: object
+      required:
+        - Pclass
+        - Parch
+        - Age
+        - Sex
+      properties:
+        Pclass:
+          type: integer
+          description: Pclass
+          example: 3
+        Parch:
+          type: integer
+          description: Parch
+          example: 0
+        Age:
+          type: integer
+          description: Age
+          example: 33
+        Sex:
+          type: string
+          description: Sex
+          example: female
+    prediction:
+      type: object
+      properties:
+        mention_text:
+          type: integer
+          description: Survivor equal 1 or NOT survior equal 0
+          example: 1

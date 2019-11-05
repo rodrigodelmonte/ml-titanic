@@ -1,4 +1,3 @@
-import os
 import joblib
 import pandas as pd
 
@@ -7,10 +6,8 @@ class Model(object):
 
     def __init__(self):
 
-        features_file = os.environ.get('FEATURES_FILE', 'features.pkl')
-        model_file = os.environ.get('FEATURES_FILE', 'lr_model.pkl')
-        self.features = joblib.load(features_file)
-        self.clf = joblib.load(model_file)
+        self.features = joblib.load('features.pkl')
+        self.clf = joblib.load('logreg_model.pkl')
 
     def pipeline(self, X):
         '''

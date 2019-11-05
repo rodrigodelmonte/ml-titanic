@@ -21,7 +21,7 @@ jobs:
         cd flask-sklearn/
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-    - name: Test with pytest
+    - name: make test
       run: |
         cd flask-sklearn/
         pip install pytest pytest-sugar pytest-helpers-namespace

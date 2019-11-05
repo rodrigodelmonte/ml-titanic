@@ -25,4 +25,4 @@ jobs:
       run: |
         cd flask-sklearn/
         pip install pytest pytest-sugar pytest-helpers-namespace
-        pytest
+        make test

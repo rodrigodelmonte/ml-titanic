@@ -22,6 +22,6 @@ jobs:
         pip install -r requirements.txt
     - name: make test
       run: |
-        cd flask-sklearn/
+        cd fast-api/
         pip install pytest pytest-sugar pytest-helpers-namespace
         make test

@@ -6,8 +6,8 @@ class Model(object):
 
     def __init__(self):
 
-        self.features = joblib.load('features.pkl')
-        self.clf = joblib.load('logreg_model.pkl')
+        self.features = joblib.load('./fast-api/features.pkl')
+        self.clf = joblib.load('./fast-api/logreg_model.pkl')
 
     def pipeline(self, X):
         '''

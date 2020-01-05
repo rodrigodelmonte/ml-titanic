@@ -1,1 +1,1 @@
-web: gunicorn flask-sklearn.wsgi --log-file -
+web: uvicorn main:app --reload
